@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل ورش عمل PHP - Unit 19 | Practical Guide</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font Cairo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#035485',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                            dark: '#0f172a',
+                            panel: '#1e293b'
+                        },
+                        code: {
+                            bg: '#1e1e2e',
+                            text: '#cdd6f4'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                        code: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        pre, code {
+            font-family: 'Fira Code', monospace;
+            direction: ltr;
+            text-align: left;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #0284c7;
+        }
+        .nav-item.active {
+            background-color: #0284c7;
+            color: #ffffff;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+
+    <!-- Mobile Header -->
+    <header class="md:hidden bg-slate-800 border-b border-slate-700 p-4 flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <i class="fa-brands fa-php text-3xl text-sky-400"></i>
+            <div>
+                <h1 class="font-bold text-lg leading-none">PHP Unit 19</h1>
+                <span class="text-xs text-sky-400">دليل ورش العمل والمهام</span>
+            </div>
+        </div>
+        <button id="toggleMenuBtn" class="text-slate-300 hover:text-white p-2">
+            <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="fixed md:sticky top-0 right-0 h-screen w-72 bg-slate-800/95 backdrop-blur border-l border-slate-700/60 flex flex-col z-40 transition-transform duration-300 transform translate-x-full md:translate-x-0">
+        <!-- Sidebar Header -->
+        <div class="p-5 border-b border-slate-700/60 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 font-bold text-xl">
+                <i class="fa-brands fa-php text-2xl"></i>
+            </div>
+            <div>
+                <h2 class="font-bold text-lg text-white">ورش عمل PHP</h2>
+                <p class="text-xs text-slate-400">الوحدة 19 - التطبيقات العملية</p>
+            </div>
+        </div>
+
+        <!-- Navigation Links Container -->
+        <nav class="flex-1 overflow-y-auto p-4 custom-scrollbar space-y-6">
+            
+            <!-- GitHub Section -->
+            <div>
+                <button onclick="navigateTo('github-guide')" class="w-full nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-amber-400 hover:bg-slate-700/50 transition duration-150 text-right">
+                    <i class="fa-brands fa-github text-lg"></i>
+                    <span class="text-sm font-semibold">دليل رفع المشروع على GitHub</span>
+                </button>
+            </div>
+
+            <!-- Workshop 1 -->
+            <div>
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 px-2 flex items-center justify-between">
+                    <span>Workshop 1: الإعداد والأساسيات</span>
+                    <span class="text-[10px] bg-slate-700 text-sky-300 px-1.5 py-0.5 rounded">2 Tasks</span>
+                </h3>
+                <div class="space-y-1">
+                    <button onclick="navigateTo('w1-t1')" class="w-full nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-700/50 hover:text-white transition">
+                        <i class="fa-solid fa-download text-slate-400 text-xs"></i>
+                        <span>Task 1: تثبيت XAMPP وإعداده</span>
+                    </button>
+                    <button onclick="navigateTo('w1-t2')" class="w-full nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-700/50 hover:text-white transition">
+                        <i class="fa-solid fa-code text-slate-400 text-xs"></i>
+                        <span>Task 2: أول برنامج وحسابات PHP</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Workshop 2 -->
+            <div>
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 px-2 flex items-center justify-between">
+                    <span>Workshop 2: التحكم والتحقق</span>
+                    <span class="text-[10px] bg-slate-700 text-sky-300 px-1.5 py-0.5 rounded">5 Tasks</span>
+                </h3>
+                <div class="space-y-1">
+                    <button onclick="navigateTo('w2-t1')" class="w-full nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-700/50 hover:text-white transition">
+                        <i class="fa-solid fa-terminal text-slate-400 text-xs"></i>
+                        <span>Task 1: FizzBuzz المعدلة</span>
+                    </button>
+                    <button onclick="navigateTo('w2-t2')" class="w-full nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-700/50 hover:text-white transition">
+                        <i class="fa-solid fa-graduation-cap text-slate-400 text-xs"></i>
+                        <span>Task 2: تقرير الدرجات وفحص المدخلات</span>
+                    </button>
+                    <button onclick="navigateTo('w2-t3')" class="w-full nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-700/50 hover:text-white transition">
+                        <i class="fa-solid fa-boxes-stacked text-slate-400 text-xs"></i>
+                        <span>Task 3: إدارة المخزن والتكرار المتداخل</span>
+                    </button>
+                    <button onclick="navigateTo('w2-t4')" class="w-full nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-700/50 hover:text-white transition">
+                        <i class="fa-solid fa-gamepad text-slate-400 text-xs"></i>
+                        <span>Task 4: خوارزمية لعبة التخمين</span>
+                    </button>
+                    <button onclick="navigateTo('w2-t5')" class="w-full nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-700/50 hover:text-white transition">
+                        <i class="fa-solid fa-calculator text-slate-400 text-xs"></i>
+                        <span>Task 5: حاسبة نصية ومعالجة الأخطاء</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Workshop 3 -->
+            <div>
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 px-2 flex items-center justify-between">
+                    <span>Workshop 3: الدوال والدوال السهمية</span>
+                    <span class="text-[10px] bg-slate-700 text-sky-300 px-1.5 py-0.5 rounded">5 Tasks</span>
+                </h3>
+                <div class="space-y-1">
+                    <button onclick="navigateTo('w3-t1')" class="w-full nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-700/50 hover:text-white transition">
+                        <i class="fa-solid fa-font text-slate-400 text-xs"></i>
+                        <span>Task 1: دالة تنسيق أسماء المستخدمين</span>
+                    </button>
+                    <button onclick="navigateTo('w3-t2')" class="w-full nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-700/50 hover:text-white transition">
+                        <i class="fa-solid fa-chart-line text-slate-400 text-xs"></i>
+                        <span>Task 2: محلل الأعداد بالـ Arrow Functions</span>
+                    </button>
+                    <button onclick="navigateTo('w3-t3')" class="w-full nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-700/50 hover:text-white transition">
+                        <i class="fa-solid fa-users text-slate-400 text-xs"></i>
+                        <span>Task 3: سجلات الطلاب والمصفوفات المتعددة</span>
+                    </button>
+                    <button onclick="navigateTo('w3-t4')" class="w-full nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-700/50 hover:text-white transition">
+                        <i class="fa-solid fa-layer-group text-slate-400 text-xs"></i>
+                        <span>Task 4: دوال التعامل مع المصفوفات</span>
+                    </button>
+                    <button onclick="navigateTo('w3-t5')" class="w-full nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-700/50 hover:text-white transition">
+                        <i class="fa-solid fa-address-book text-slate-400 text-xs"></i>
+                        <span>Task 5: دليل جهات الاتصال و Callback</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Workshop 4 -->
+            <div>
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 px-2 flex items-center justify-between">
+                    <span>Workshop 4: النماذج والأمان Web Forms</span>
+                    <span class="text-[10px] bg-slate-700 text-sky-300 px-1.5 py-0.5 rounded">4 Tasks</span>
+                </h3>
+                <div class="space-y-1">
+                    <button onclick="navigateTo('w4-t1')" class="w-full nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-700/50 hover:text-white transition">
+                        <i class="fa-solid fa-cubes text-slate-400 text-xs"></i>
+                        <span>Task 1: الهيكلة بمكتبات Include/Require</span>
+                    </button>
+                    <button onclick="navigateTo('w4-t2')" class="w-full nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-700/50 hover:text-white transition">
+                        <i class="fa-solid fa-right-to-bracket text-slate-400 text-xs"></i>
+                        <span>Task 2: المقارنة بين GET و POST</span>
+                    </button>
+                    <button onclick="navigateTo('w4-t3')" class="w-full nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-700/50 hover:text-white transition">
+                        <i class="fa-solid fa-user-check text-slate-400 text-xs"></i>
+                        <span>Task 3: التحقق الكامل للنماذج</span>
+                    </button>
+                    <button onclick="navigateTo('w4-t4')" class="w-full nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-700/50 hover:text-white transition">
+                        <i class="fa-solid fa-shield-halved text-slate-400 text-xs"></i>
+                        <span>Task 4: الحماية من ثغرات XSS</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Workshop 5 -->
+            <div>
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 px-2 flex items-center justify-between">
+                    <span>Workshop 5: قواعد البيانات MySQLi</span>
+                    <span class="text-[10px] bg-slate-700 text-sky-300 px-1.5 py-0.5 rounded">4 Tasks</span>
+                </h3>
+                <div class="space-y-1">
+                    <button onclick="navigateTo('w5-setup')" class="w-full nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-700/50 hover:text-white transition">
+                        <i class="fa-solid fa-database text-slate-400 text-xs"></i>
+                        <span>إعداد القاعدة والتداول MySQL</span>
+                    </button>
+                    <button onclick="navigateTo('w5-t1')" class="w-full nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-700/50 hover:text-white transition">
+                        <i class="fa-solid fa-plug text-slate-400 text-xs"></i>
+                        <span>Task 1: الاتصال وتعبئة البيانات Seed</span>
+                    </button>
+                    <button onclick="navigateTo('w5-t2')" class="w-full nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-700/50 hover:text-white transition">
+                        <i class="fa-solid fa-filter text-slate-400 text-xs"></i>
+                        <span>Task 2: عرض المنتجات مع الفلترة</span>
+                    </button>
+                    <button onclick="navigateTo('w5-t3')" class="w-full nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-700/50 hover:text-white transition">
+                        <i class="fa-solid fa-rotate text-slate-400 text-xs"></i>
+                        <span>Task 3: تحديث الكميات والتحقق</span>
+                    </button>
+                    <button onclick="navigateTo('w5-t4')" class="w-full nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-700/50 hover:text-white transition">
+                        <i class="fa-solid fa-trash text-slate-400 text-xs"></i>
+                        <span>Task 4: الحذف والمفهوم Soft Delete</span>
+                    </button>
+                </div>
+            </div>
+
+        </nav>
+    </aside>
+
+    <!-- Overlay for mobile sidebar -->
+    <div id="overlay" class="fixed inset-0 bg-slate-950/70 z-30 hidden md:hidden"></div>
+
+    <!-- Main Content Display -->
+    <main class="flex-1 p-4 md:p-8 max-w-5xl mx-auto overflow-y-auto">
+
+        <!-- Banner Welcome -->
+        <div class="mb-8 p-6 bg-gradient-to-l from-sky-900/50 via-slate-800 to-slate-800 rounded-2xl border border-sky-500/20 relative overflow-hidden">
+            <div class="relative z-10">
+                <span class="inline-block px-3 py-1 bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-semibold rounded-full mb-3">
+                    مدارس دي للتكنولوجيا التطبيقية (WE) - العام الدراسي 2026-2027
+                </span>
+                <h1 class="text-2xl md:text-3xl font-extrabold text-white mb-2">الدليل الشامل للحلول البرمجية - Unit 19 (PHP Level 1)</h1>
+                <p class="text-slate-300 text-sm max-w-2xl leading-relaxed">
+                    منصة تعليمية وتفاعلية شاملة تحتوي على الأكواد الكاملة لورش العمل من 1 إلى 5 مع التحليل التفصيلي وإمكانية نسخ الكود مباشرة ودليل رفع المشروع على منصة GitHub.
+                </p>
+            </div>
+            <div class="absolute left-0 bottom-0 top-0 w-1/3 bg-gradient-to-r from-sky-500/10 to-transparent pointer-events-none"></div>
+        </div>
+
+        <!-- Dynamic Content Sections Container -->
+        <div id="content-container">
+
+            <!-- GitHub Guide Section -->
+            <section id="github-guide" class="content-section space-y-6">
+                <div class="border-b border-slate-700 pb-4">
+                    <div class="flex items-center gap-2 text-amber-400 mb-1">
+                        <i class="fa-brands fa-github text-xl"></i>
+                        <span class="text-xs font-bold uppercase tracking-wider">GitHub Deployment Guide</span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-white">دليل رفع المشروع بالكامل على موقع GitHub</h2>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                        <div class="w-8 h-8 bg-amber-500/10 border border-amber-500/30 text-amber-400 rounded-lg flex items-center justify-center font-bold mb-3">1</div>
+                        <h3 class="font-bold text-white mb-1 text-sm">أنشئ مستودع Repository</h3>
+                        <p class="text-xs text-slate-400">سجّل دخولك على GitHub ثم اضغط New Repository وسمّيه باسم <code class="text-sky-300">php-unit19-workshops</code> دون إختيار Initialize with README حالياً.</p>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                        <div class="w-8 h-8 bg-amber-500/10 border border-amber-500/30 text-amber-400 rounded-lg flex items-center justify-center font-bold mb-3">2</div>
+                        <h3 class="font-bold text-white mb-1 text-sm">افتح Terminal/Git Bash</h3>
+                        <p class="text-xs text-slate-400">انتقل مجلد المجلد الخارجي لمشروعك في الحاسوب <code class="text-sky-300">C:\xampp\htdocs\php-unit19</code> ثم اكتب الأوامر الموضحة أدناه.</p>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                        <div class="w-8 h-8 bg-amber-500/10 border border-amber-500/30 text-amber-400 rounded-lg flex items-center justify-center font-bold mb-3">3</div>
+                        <h3 class="font-bold text-white mb-1 text-sm">ارفع الملفات Push</h3>
+                        <p class="text-xs text-slate-400">نفذ أمر Push لرفع كامل الملفات والأكواد إلى المستودع ليتم حفظها وتصفحها أو تقديمها للمعلم.</p>
+                    </div>
+                </div>
+
+                <!-- Git Commands Code Box -->
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="bg-slate-900/80 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                        <span class="text-xs font-semibold text-slate-300 font-mono">Terminal / Git Commands</span>
+                        <button onclick="copyCode('git-commands-code', this)" class="text-xs bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>نسخ الأوامر</span>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-slate-950 overflow-x-auto">
+<pre id="git-commands-code" class="text-sm text-sky-300"><code># 1. تهيئة مستودع Git محلي داخل مجلد المشروع
+git init
+
+# 2. إضافة كافة الملفات المجهزة للمتابعة
+git add .
+
+# 3. إنشاء Commit وتوثيق التغييرات
+git commit -m "Completed all PHP Workshops Unit 19 (Tasks 1 to 5)"
+
+# 4. تغيير اسم الفرع الرئيسي إلى main
+git branch -M main
+
+# 5. ربط المستودع المحلي بالمستودع على GitHub (استبدل الرابط برابط مستودعك)
+git remote add origin https://github.com/USERNAME/php-unit19-workshops.git
+
+# 6. رفع الملفات إلى GitHub
+git push -u origin main</code></pre>
+                    </div>
+                </div>
+
+                <!-- Suggested README.md Code Box -->
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="bg-slate-900/80 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                        <span class="text-xs font-semibold text-slate-300 font-mono">ملف README.md للمشروع (اختياري واحترافي)</span>
+                        <button onclick="copyCode('readme-code', this)" class="text-xs bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>نسخ README</span>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-slate-950 overflow-x-auto">
+<pre id="readme-code" class="text-sm text-slate-300"><code># PHP Unit 19 Workshops Practical Guide
+
+هذا المستودع يحتوي على الأكواد والحلول الكاملة لجميع ورش العمل المعتمدة لـ **PHP Level 1 (Unit 19)**.
+
+## هيكلة المشروع
+- `Workshop 1`: إعداد بيئة العمل XAMPP والمفاهيم الأساسية المتغيرات والعمليات الحسابية.
+- `Workshop 2`: التحكم بالبرنامج (Loops, Conditionals, Switch, FizzBuzz, Grade Report, Inventory Management).
+- `Workshop 3`: الدوال المخصصة (Functions), الدوال السهمية (Arrow Functions), والمصفوفات المتعددة الأبعاد.
+- `Workshop 4`: إدارة نماذج الويب (GET & POST), التحقق من البيانات (Server Validation), وتأمين التطبيقات من ثغرات (XSS).
+- `Workshop 5`: التعامل مع قواعد البيانات MySQLi (الاتصال, الاستعلامات Dynamic Queries, التحديثات, والحذف الآمن Soft Delete).
+
+## متطلبات التشغيل المحلي
+1. برنامج XAMPP مع PHP 8.1+.
+2. تفعيل سيرفر Apache و MySQL من لوحة تحكم XAMPP.
+3. نقل مجلد المشروع إلى `C:\xampp\htdocs\`.</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workshop 1 Task 1 -->
+            <section id="w1-t1" class="content-section space-y-6 hidden">
+                <div class="border-b border-slate-700 pb-4">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Workshop 1 - Task 1</span>
+                    <h2 class="text-2xl font-bold text-white">تثبيت وإعداد بيئة XAMPP ومعالجة تعارض المنفذ (Port 3306)</h2>
+                    <p class="text-sm text-slate-400 mt-1">المفاهيم: XAMPP Installation, MySQL Port Configuration (3306 to 3307), Apache Setup.</p>
+                </div>
+
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 space-y-3">
+                    <h3 class="font-bold text-lg text-sky-300">الخطوات الشاملة للتثبيت والإعداد:</h3>
+                    <ol class="list-decimal list-inside text-sm text-slate-300 space-y-2 leading-relaxed">
+                        <li>قم بإزالة كلمة سر الـ root في Workbench عبر تنفيذ الاستعلام التالي:
+                            <code class="bg-slate-950 text-amber-300 px-2 py-1 rounded text-xs dir-ltr">ALTER USER 'root'@'localhost' IDENTIFIED BY ''; FLUSH PRIVILEGES;</code>
+                        </li>
+                        <li>تحميل برنامج XAMPP بالإصدار 8.1.25 من الموقع الرسمي Apache Friends.</li>
+                        <li>إيقاف تشغيل برنامج الحماية Antivirus مؤقتاً لتجنب أي تعارض أثناء عملية التثبيت.</li>
+                        <li>الضغط على <code class="text-sky-300">Next</code> وتثبيت البرنامج في المسار الإفتراضي <code class="text-sky-300">C:\xampp</code>.</li>
+                        <li>تشغيل Apache و MySQL من لوحة تحكم XAMPP.</li>
+                    </ol>
+                </div>
+
+                <div class="bg-amber-500/10 border border-amber-500/30 p-4 rounded-xl">
+                    <h4 class="font-bold text-amber-400 text-sm mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span>حل مشكلة تعارض منفذ MySQL (Port 3306):</span>
+                    </h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        في حال ظهرت لك الإشارة الحمراء عند تشغيل MySQL بسبب شغل المنفذ 3306 بواسطة Workbench:
+                        <br>
+                        1. اضغط على زر <b class="text-white">Config</b> في السطر الخاص بـ MySQL ثم اختر <b class="text-white">my.ini</b>.
+                        <br>
+                        2. اضغط <b class="text-white">Ctrl + H</b> وابحث عن الرقم <b class="text-white">3306</b> واستبدله بالكامل بـ <b class="text-white">3307</b> ثم احفظ الملف وأعد التشغيل.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Workshop 1 Task 2 -->
+            <section id="w1-t2" class="content-section space-y-6 hidden">
+                <div class="border-b border-slate-700 pb-4">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Workshop 1 - Task 2</span>
+                    <h2 class="text-2xl font-bold text-white">تشغيل أول برنامج PHP والعمليات الحسابية والمنطقية</h2>
+                    <p class="text-sm text-slate-400 mt-1">المفاهيم: Constants (define), Arithmetic Operators, Comparison Operators, Logical Operators, Ternary Operator.</p>
+                </div>
+
+                <!-- Description & Requirements -->
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 text-sm text-slate-300 space-y-2">
+                    <p><b>المطلوب:</b> إنشاء ملف باسم <code class="text-sky-300">task.php</code> داخل مجلد المشروع، وتعريف ثابث <code class="text-sky-300">PASSING_GRADE</code> بقيمة 50، وطباعة ناتج العمليات الحسابية لمتقاربين، ثم استخدام المعاملات المنطقية والمقارنة لطباعة النتيجة.</p>
+                </div>
+
+                <!-- Code Block -->
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="bg-slate-900/80 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                        <span class="text-xs font-semibold text-slate-300 font-mono">task.php</span>
+                        <button onclick="copyCode('w1t2-code', this)" class="text-xs bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>نسخ الكود</span>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-slate-950 overflow-x-auto">
+<pre id="w1t2-code" class="text-sm text-slate-300"><code>&lt;?php
+// 1. تعريف الثابت PASSING_GRADE
+define("PASSING_GRADE", 50);
+
+// 2. إنشاء المتغيرين
+$num1 = 12;
+$num2 = 4;
+
+// عرض نتائج العمليات الحسابية الأربع
+echo "Sum: " . ($num1 + $num2) . "\n";
+echo "Difference: " . ($num1 - $num2) . "\n";
+echo "Product: " . ($num1 * $num2) . "\n";
+echo "Division: " . ($num1 / $num2) . "\n";
+
+// 3. درجات الطالب والعمر
+$studentGrade = 65;
+$age = 20;
+
+// المقارنة بالثابت PASSING_GRADE واستخدام المعامل الشرطي
+echo "Is Passing: " . ($studentGrade >= PASSING_GRADE ? "true" : "false") . "\n";
+
+// 4. استخدام المعامل المنطقي && للتحقق من شرطين معاً
+echo "Passing and Adult: " . (($studentGrade >= PASSING_GRADE && $age > 18) ? "true" : "false");
+?&gt;</code></pre>
+                    </div>
+                </div>
+
+                <!-- Analysis -->
+                <div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700/60 text-xs text-slate-300 space-y-2">
+                    <h4 class="font-bold text-sky-400 text-sm">شرح وتحليل الكود:</h4>
+                    <p>• <code class="text-sky-300">define()</code> تُستخدم لإنشاء ثوابت لا يمكن تغيير قيمتها أثناء تنفيذ السكربت.</p>
+                    <p>• الشرط الثلاثي <code class="text-sky-300">(condition) ? true : false</code> أسلوب مختصر لكتابة جملة if البسيطة.</p>
+                    <p>• المعامل المنطقي <code class="text-sky-300">&&</code> يضمن تحقق الشرطين معاً (أن تكون الدرجة أصلية أو تساوي 50 والعمر أكبر من 18).</p>
+                </div>
+            </section>
+
+            <!-- Workshop 2 Task 1 -->
+            <section id="w2-t1" class="content-section space-y-6 hidden">
+                <div class="border-b border-slate-700 pb-4">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Workshop 2 - Task 1</span>
+                    <h2 class="text-2xl font-bold text-white">لعبة FizzBuzz مع التحقق من الأعداد الأولية (Prime Numbers)</h2>
+                    <p class="text-sm text-slate-400 mt-1">المفاهيم: loops, conditionals, modulus %, string concatenation, prime detection function.</p>
+                </div>
+
+                <!-- Code Block -->
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="bg-slate-900/80 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                        <span class="text-xs font-semibold text-slate-300 font-mono">task1.php</span>
+                        <button onclick="copyCode('w2t1-code', this)" class="text-xs bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>نسخ الكود</span>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-slate-950 overflow-x-auto">
+<pre id="w2t1-code" class="text-sm text-slate-300"><code>&lt;?php
+// دالة للتحقق مما إذا كان الرقم أولياً
+function isPrime($n) {
+    if ($n < 2) return false;
+    for ($i = 2; $i <= sqrt($n); $i++) {
+        if ($n % $i == 0) return false;
+    }
+    return true;
+}
+
+// التكرار من 1 إلى 50
+for ($i = 1; $i <= 50; $i++) {
+    if ($i % 3 == 0 && $i % 5 == 0) {
+        $output = "FizzBuzz";
+    } elseif ($i % 3 == 0) {
+        $output = "Fizz";
+    } elseif ($i % 5 == 0) {
+        $output = "Buzz";
+    } else {
+        $output = $i;
+    }
+
+    // إذا كان الرقم أولياً نضع النتيجة بين أقواس مربعة []
+    echo isPrime($i) ? "[$output]" : $output;
+    echo "\n";
+}
+?&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workshop 2 Task 2 -->
+            <section id="w2-t2" class="content-section space-y-6 hidden">
+                <div class="border-b border-slate-700 pb-4">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Workshop 2 - Task 2</span>
+                    <h2 class="text-2xl font-bold text-white">تقرير درجات الطلاب مع فحص المدخلات (Grade Report with Validation)</h2>
+                    <p class="text-sm text-slate-400 mt-1">المفاهيم: switch(true) pattern, is_numeric(), continue, type casting, input validation.</p>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="bg-slate-900/80 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                        <span class="text-xs font-semibold text-slate-300 font-mono">task2.php</span>
+                        <button onclick="copyCode('w2t2-code', this)" class="text-xs bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>نسخ الكود</span>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-slate-950 overflow-x-auto">
+<pre id="w2t2-code" class="text-sm text-slate-300"><code>&lt;?php
+$scores = [95, "abc", 72, -5, 105, 60, "88"];
+
+foreach ($scores as $score) {
+    // 1. التحقق مما إذا كانت المدخلات عدداً
+    if (!is_numeric($score)) {
+        echo "Invalid entry: $score\n";
+        continue;
+    }
+
+    $score = (float)$score;
+
+    // 2. التحقق من المدى المقبول (من 0 إلى 100)
+    if ($score < 0 || $score > 100) {
+        echo "Out of range: $score\n";
+        continue;
+    }
+
+    // 3. تصنيف الدرجات باستخدام خدعة switch(true)
+    switch (true) {
+        case $score >= 90:
+            $grade = "A";
+            break;
+        case $score >= 75:
+            $grade = "B";
+            break;
+        case $score >= 60:
+            $grade = "C";
+            break;
+        default:
+            $grade = "F";
+    }
+
+    echo "Score $score - $grade\n";
+}
+?&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workshop 2 Task 3 -->
+            <section id="w2-t3" class="content-section space-y-6 hidden">
+                <div class="border-b border-slate-700 pb-4">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Workshop 2 - Task 3</span>
+                    <h2 class="text-2xl font-bold text-white">نظام إدارة المخازن بالتكرار المتداخل (Inventory Management)</h2>
+                    <p class="text-sm text-slate-400 mt-1">المفاهيم: Nested Foreach, Associative Arrays, Key => Value iteration, break/continue.</p>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="bg-slate-900/80 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                        <span class="text-xs font-semibold text-slate-300 font-mono">task3.php</span>
+                        <button onclick="copyCode('w2t3-code', this)" class="text-xs bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>نسخ الكود</span>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-slate-950 overflow-x-auto">
+<pre id="w2t3-code" class="text-sm text-slate-300"><code>&lt;?php
+$warehouse = [
+    "Electronics" => ["Laptop" => 5, "Phone" => 0, "Tablet" => 12],
+    "Furniture"   => ["Chair" => 20, "Desk" => 0, "Sofa" => 3],
+    "Stationery"  => ["Pen" => 500, "Notebook" => 0, "Stapler" => 8]
+];
+
+$inStockCount = 0;
+$outOfStockCount = 0;
+
+foreach ($warehouse as $category => $items) {
+    foreach ($items as $item => $stock) {
+        if ($stock == 0) {
+            $outOfStockCount++;
+            continue; // تخطي المنتجات النافذة من المخزن
+        }
+        echo "$category - $item: $stock units\n";
+        $inStockCount++;
+    }
+}
+
+echo "\nSummary:\n";
+echo "Categories: " . count($warehouse) . "\n";
+echo "Items in stock: $inStockCount\n";
+echo "Items out of stock: $outOfStockCount\n";
+?&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workshop 2 Task 4 -->
+            <section id="w2-t4" class="content-section space-y-6 hidden">
+                <div class="border-b border-slate-700 pb-4">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Workshop 2 - Task 4</span>
+                    <h2 class="text-2xl font-bold text-white">منطق لعبة تخمين الرقم العشوائي (Number Guessing Game)</h2>
+                    <p class="text-sm text-slate-400 mt-1">المفاهيم: do...while loop, simulated input, array traversal, break statement.</p>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="bg-slate-900/80 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                        <span class="text-xs font-semibold text-slate-300 font-mono">task4.php</span>
+                        <button onclick="copyCode('w2t4-code', this)" class="text-xs bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>نسخ الكود</span>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-slate-950 overflow-x-auto">
+<pre id="w2t4-code" class="text-sm text-slate-300"><code>&lt;?php
+$secretNumber = 42;
+$guesses = [10, 55, 30, 42, 99]; // قائمة التخمينات المحاكاة
+$guessIndex = 0;
+$attempts = 0;
+$found = false;
+
+do {
+    $guess = $guesses[$guessIndex];
+    $attempts++;
+
+    if ($guess < $secretNumber) {
+        echo "$guess: Too low\n";
+    } elseif ($guess > $secretNumber) {
+        echo "$guess: Too high\n";
+    } else {
+        echo "$guess: Correct!\n";
+        $found = true;
+        break; // إيقاف الحلقة فور التوصل للتخمين الصحيح
+    }
+
+    $guessIndex++;
+} while ($guessIndex < count($guesses));
+
+if ($found) {
+    echo "Found it in $attempts attempts.\n";
+} else {
+    echo "Out of guesses!\n";
+}
+?&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workshop 2 Task 5 -->
+            <section id="w2-t5" class="content-section space-y-6 hidden">
+                <div class="border-b border-slate-700 pb-4">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Workshop 2 - Task 5</span>
+                    <h2 class="text-2xl font-bold text-white">حاسبة نصية مع معالجة الأخطاء (Simple Text Calculator)</h2>
+                    <p class="text-sm text-slate-400 mt-1">المفاهيم: switch statement, Edge cases (Division by Zero), Default case for invalid operators.</p>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="bg-slate-900/80 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                        <span class="text-xs font-semibold text-slate-300 font-mono">task5.php</span>
+                        <button onclick="copyCode('w2t5-code', this)" class="text-xs bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>نسخ الكود</span>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-slate-950 overflow-x-auto">
+<pre id="w2t5-code" class="text-sm text-slate-300"><code>&lt;?php
+$operations = [
+    ["num1" => 10, "num2" => 5, "op" => "+"],
+    ["num1" => 10, "num2" => 0, "op" => "/"],
+    ["num1" => 7,  "num2" => 3, "op" => "*"],
+    ["num1" => 9,  "num2" => 2, "op" => "%"],
+    ["num1" => 5,  "num2" => 5, "op" => "^"] // معامل غير معروف
+];
+
+foreach ($operations as $operation) {
+    $a  = $operation["num1"];
+    $b  = $operation["num2"];
+    $op = $operation["op"];
+
+    switch ($op) {
+        case "+":
+            echo "$a + $b = " . ($a + $b) . "\n";
+            break;
+        case "-":
+            echo "$a - $b = " . ($a - $b) . "\n";
+            break;
+        case "*":
+            echo "$a * $b = " . ($a * $b) . "\n";
+            break;
+        case "/":
+            if ($b == 0) {
+                echo "Error: division by zero\n";
+            } else {
+                echo "$a / $b = " . ($a / $b) . "\n";
+            }
+            break;
+        case "%":
+            if ($b == 0) {
+                echo "Error: division by zero\n";
+            } else {
+                echo "$a % $b = " . ($a % $b) . "\n";
+            }
+            break;
+        default:
+            echo "Error: unknown operator $op\n";
+    }
+}
+?&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workshop 3 Task 1 -->
+            <section id="w3-t1" class="content-section space-y-6 hidden">
+                <div class="border-b border-slate-700 pb-4">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Workshop 3 - Task 1</span>
+                    <h2 class="text-2xl font-bold text-white">أداة تنسيق أسماء المستخدمين (String Utility Toolkit)</h2>
+                    <p class="text-sm text-slate-400 mt-1">المفاهيم: User Functions, Default Parameters, strtolower(), str_replace(), substr().</p>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="bg-slate-900/80 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                        <span class="text-xs font-semibold text-slate-300 font-mono">task1.php</span>
+                        <button onclick="copyCode('w3t1-code', this)" class="text-xs bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>نسخ الكود</span>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-slate-950 overflow-x-auto">
+<pre id="w3t1-code" class="text-sm text-slate-300"><code>&lt;?php
+function formatUsername($fullName, $maxLength = 10) {
+    // 1. تحويل الاسم إلى حروف صغيرة
+    $formatted = strtolower($fullName);
+    
+    // 2. استبدال المسافات بالشرطة السفلية
+    $formatted = str_replace(" ", "_", $formatted);
+    
+    // 3. اقتطاع النص إذا تجاوز الحد الأقصى
+    if (strlen($formatted) > $maxLength) {
+        $formatted = substr($formatted, 0, $maxLength) . "...";
+    }
+    
+    return $formatted;
+}
+
+// اختبار الدالة
+echo formatUsername("Ahmed Hassan") . "\n"; // يقع عليه الاقتطاع مع الطول الإفتراضي 10
+echo formatUsername("Sara Ali", 5) . "\n";  // اقتطاع بحسب الحد المحدد 5
+echo formatUsername("Bob") . "\n";          // بدون اقتطاع
+?&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workshop 3 Task 2 -->
+            <section id="w3-t2" class="content-section space-y-6 hidden">
+                <div class="border-b border-slate-700 pb-4">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Workshop 3 - Task 2</span>
+                    <h2 class="text-2xl font-bold text-white">محلل الأعداد باستخدام الدوال السهمية (Arrow Functions)</h2>
+                    <p class="text-sm text-slate-400 mt-1">المفاهيم: fn() => Arrow functions, array_map(), array_filter(), abs(), round(), sqrt(), min(), max(), pow().</p>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="bg-slate-900/80 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                        <span class="text-xs font-semibold text-slate-300 font-mono">task2.php</span>
+                        <button onclick="copyCode('w3t2-code', this)" class="text-xs bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>نسخ الكود</span>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-slate-950 overflow-x-auto">
+<pre id="w3t2-code" class="text-sm text-slate-300"><code>&lt;?php
+$numbers = [4.7, -12, 9, 25.3, -3.9, 16, 1.1];
+
+// استخدام الدوال السهمية المعرفة ببناء fn()
+$absolutes = array_map(fn($n) => abs($n), $numbers);
+$rounded   = array_map(fn($n) => round($n), $numbers);
+$sqrtsOfPositive = array_map(fn($n) => $n >= 0 ? sqrt($n) : null, $numbers);
+
+echo "Absolute values: " . implode(", ", $absolutes) . "\n";
+echo "Rounded: " . implode(", ", $rounded) . "\n";
+echo "Square roots (positives only): " . implode(", ", array_filter($sqrtsOfPositive, fn($v) => $v !== null)) . "\n";
+
+$max = max($numbers);
+echo "Min: " . min($numbers) . "\n";
+echo "Max: " . $max . "\n";
+echo "Max squared: " . pow($max, 2) . "\n";
+?&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workshop 3 Task 3 -->
+            <section id="w3-t3" class="content-section space-y-6 hidden">
+                <div class="border-b border-slate-700 pb-4">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Workshop 3 - Task 3</span>
+                    <h2 class="text-2xl font-bold text-white">سجلات الطلاب والمصفوفات متعددة الأبعاد (Multidimensional Arrays)</h2>
+                    <p class="text-sm text-slate-400 mt-1">المفاهيم: Multidimensional Associative Arrays, Custom Average Calculation, Array sum & count.</p>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="bg-slate-900/80 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                        <span class="text-xs font-semibold text-slate-300 font-mono">task3.php</span>
+                        <button onclick="copyCode('w3t3-code', this)" class="text-xs bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>نسخ الكود</span>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-slate-950 overflow-x-auto">
+<pre id="w3t3-code" class="text-sm text-slate-300"><code>&lt;?php
+$students = [
+    ["name" => "Layla", "scores" => [88, 92, 79]],
+    ["name" => "Omar",  "scores" => [65, 70, 60]],
+    ["name" => "Nour",  "scores" => [95, 89, 99]]
+];
+
+// دالة مخصصة لحساب المتوسط الحسابي
+function calculateAverage($scores) {
+    return array_sum($scores) / count($scores);
+}
+
+$topStudent = "";
+$topAverage = 0;
+
+foreach ($students as $student) {
+    $avg = round(calculateAverage($student["scores"]), 2);
+    echo $student["name"] . " - Average: " . $avg . "\n";
+
+    if ($avg > $topAverage) {
+        $topAverage = $avg;
+        $topStudent = $student["name"];
+    }
+}
+
+echo "\nTop student: $topStudent with an average of $topAverage\n";
+?&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workshop 3 Task 4 -->
+            <section id="w3-t4" class="content-section space-y-6 hidden">
+                <div class="border-b border-slate-700 pb-4">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Workshop 3 - Task 4</span>
+                    <h2 class="text-2xl font-bold text-white">مدير المخزن باستخدام دوال المصفوفات المدمجة</h2>
+                    <p class="text-sm text-slate-400 mt-1">المفاهيم: array_push, array_pop, in_array, array_merge, array_slice, array_reverse.</p>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="bg-slate-900/80 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                        <span class="text-xs font-semibold text-slate-300 font-mono">task4.php</span>
+                        <button onclick="copyCode('w3t4-code', this)" class="text-xs bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>نسخ الكود</span>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-slate-950 overflow-x-auto">
+<pre id="w3t4-code" class="text-sm text-slate-300"><code>&lt;?php
+$stock = ["Laptop", "Phone", "Tablet"];
+$newArrivals = ["Monitor", "Keyboard"];
+
+// 1. إضافة عنصر إلى النهاية
+array_push($stock, "Mouse");
+echo "After adding Mouse: " . implode(", ", $stock) . "\n";
+
+// 2. إزالة العنصر الأخير
+$removed = array_pop($stock);
+echo "Removed: $removed\n";
+echo "After removing: " . implode(", ", $stock) . "\n";
+
+// 3. التحقق من وجود عنصر
+$hasTablet = in_array("Tablet", $stock);
+echo "Tablet in stock? " . ($hasTablet ? "Yes" : "No") . "\n";
+
+// 4. دمج مصفوفتين
+$fullCatalog = array_merge($stock, $newArrivals);
+echo "Full catalog: " . implode(", ", $fullCatalog) . "\n";
+
+// 5. اقتطاع أول 3 عناصر
+$firstThree = array_slice($fullCatalog, 0, 3);
+echo "First 3 items: " . implode(", ", $firstThree) . "\n";
+
+// 6. عكس مصفوفة دون تعديل الأصلية
+$reversed = array_reverse($fullCatalog);
+echo "Reversed (original untouched): " . implode(", ", $reversed) . "\n";
+echo "Original still: " . implode(", ", $fullCatalog) . "\n";
+?&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workshop 3 Task 5 -->
+            <section id="w3-t5" class="content-section space-y-6 hidden">
+                <div class="border-b border-slate-700 pb-4">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Workshop 3 - Task 5</span>
+                    <h2 class="text-2xl font-bold text-white">دليل جهات اتصال مصغر مع دالة Callback التفاعلية</h2>
+                    <p class="text-sm text-slate-400 mt-1">المفاهيم: Anonymous Callbacks, Return Arrays, str_starts_with(), date().</p>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="bg-slate-900/80 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                        <span class="text-xs font-semibold text-slate-300 font-mono">task5.php</span>
+                        <button onclick="copyCode('w3t5-code', this)" class="text-xs bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>نسخ الكود</span>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-slate-950 overflow-x-auto">
+<pre id="w3t5-code" class="text-sm text-slate-300"><code>&lt;?php
+function addContact($book, $name, $phone) {
+    $book[$name] = [
+        "phone" => $phone,
+        "added_on" => date("Y-m-d")
+    ];
+    return $book;
+}
+
+function searchContacts($book, $filterFn) {
+    $results = [];
+    foreach ($book as $name => $info) {
+        if ($filterFn($name)) {
+            $results[$name] = $info;
+        }
+    }
+    return $results;
+}
+
+// 1. إضافة أسماء للدليل
+$contacts = [];
+$contacts = addContact($contacts, "Layla", "0123456789");
+$contacts = addContact($contacts, "Omar",  "0111222333");
+$contacts = addContact($contacts, "Laila", "0155566677");
+
+// 2. البحث عن الأسماء التي تبدأ بحرف 'L' باستخدام Callback
+$filtered = searchContacts($contacts, function($name) {
+    return str_starts_with($name, "L");
+});
+
+// 3. طباعة النتائج
+foreach ($filtered as $name => $info) {
+    echo "Name: $name, Phone: " . $info["phone"] . ", Added: " . $info["added_on"] . "\n";
+}
+?&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workshop 4 Task 1 -->
+            <section id="w4-t1" class="content-section space-y-6 hidden">
+                <div class="border-b border-slate-700 pb-4">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Workshop 4 - Task 1</span>
+                    <h2 class="text-2xl font-bold text-white">هيكلة الموقع النمطي باستخدام Include و Require</h2>
+                    <p class="text-sm text-slate-400 mt-1">المفاهيم: require_once, include, Modular Design, Fatal Errors vs Warnings.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <!-- config.php -->
+                    <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                        <div class="bg-slate-900/80 px-3 py-2 border-b border-slate-700 flex justify-between items-center">
+                            <span class="text-xs font-semibold text-sky-300 font-mono">config.php</span>
+                            <button onclick="copyCode('w4t1-config', this)" class="text-xs bg-slate-700 text-slate-200 px-2 py-1 rounded">نسخ</button>
+                        </div>
+                        <div class="p-3 bg-slate-950">
+<pre id="w4t1-config" class="text-xs text-slate-300"><code>&lt;?php
+define("SITE_NAME", "My PHP Workshop");
+?&gt;</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- header.php -->
+                    <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                        <div class="bg-slate-900/80 px-3 py-2 border-b border-slate-700 flex justify-between items-center">
+                            <span class="text-xs font-semibold text-sky-300 font-mono">header.php</span>
+                            <button onclick="copyCode('w4t1-header', this)" class="text-xs bg-slate-700 text-slate-200 px-2 py-1 rounded">نسخ</button>
+                        </div>
+                        <div class="p-3 bg-slate-950">
+<pre id="w4t1-header" class="text-xs text-slate-300"><code>&lt;?php
+echo "&lt;header&gt;&lt;h1&gt;" . SITE_NAME . "&lt;/h1&gt;&lt;/header&gt;";
+?&gt;</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- footer.php -->
+                    <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                        <div class="bg-slate-900/80 px-3 py-2 border-b border-slate-700 flex justify-between items-center">
+                            <span class="text-xs font-semibold text-sky-300 font-mono">footer.php</span>
+                            <button onclick="copyCode('w4t1-footer', this)" class="text-xs bg-slate-700 text-slate-200 px-2 py-1 rounded">نسخ</button>
+                        </div>
+                        <div class="p-3 bg-slate-950">
+<pre id="w4t1-footer" class="text-xs text-slate-300"><code>&lt;?php
+echo "&lt;footer&gt;&amp;copy; " . date("Y") . " " . SITE_NAME . "&lt;/footer&gt;";
+?&gt;</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- index.php -->
+                    <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                        <div class="bg-slate-900/80 px-3 py-2 border-b border-slate-700 flex justify-between items-center">
+                            <span class="text-xs font-semibold text-sky-300 font-mono">index.php</span>
+                            <button onclick="copyCode('w4t1-index', this)" class="text-xs bg-slate-700 text-slate-200 px-2 py-1 rounded">نسخ</button>
+                        </div>
+                        <div class="p-3 bg-slate-950">
+<pre id="w4t1-index" class="text-xs text-slate-300"><code>&lt;?php
+require_once("config.php");
+require_once("config.php"); // يثبت أنه يحمل مرة واحدة فقط
+
+include("header.php");
+echo "&lt;p&gt;Welcome to the site.&lt;/p&gt;";
+include("footer.php");
+?&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workshop 4 Task 2 -->
+            <section id="w4-t2" class="content-section space-y-6 hidden">
+                <div class="border-b border-slate-700 pb-4">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Workshop 4 - Task 2</span>
+                    <h2 class="text-2xl font-bold text-white">الفرق التفاعلي والعملي بين GET و POST Superglobals</h2>
+                    <p class="text-sm text-slate-400 mt-1">المفاهيم: $_GET, $_POST, isset(), htmlspecialchars(), Form Method Selection.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <!-- search.php -->
+                    <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                        <div class="bg-slate-900/80 px-3 py-2 border-b border-slate-700 flex justify-between items-center">
+                            <span class="text-xs font-semibold text-sky-300 font-mono">search.php (GET)</span>
+                            <button onclick="copyCode('w4t2-search', this)" class="text-xs bg-slate-700 text-slate-200 px-2 py-1 rounded">نسخ</button>
+                        </div>
+                        <div class="p-3 bg-slate-950">
+<pre id="w4t2-search" class="text-xs text-slate-300"><code>&lt;!-- تم اختيار GET لأن البحث لا يحتوي بيانات حساسة ويمكن مشاركة الرابط --&gt;
+&lt;form method="GET" action="search.php"&gt;
+    &lt;input type="text" name="q" placeholder="Search..."&gt;
+    &lt;button type="submit"&gt;Search&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;?php
+if (isset($_GET['q'])) {
+    echo "You searched for: " . htmlspecialchars($_GET['q']);
+}
+?&gt;</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- login.php -->
+                    <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                        <div class="bg-slate-900/80 px-3 py-2 border-b border-slate-700 flex justify-between items-center">
+                            <span class="text-xs font-semibold text-sky-300 font-mono">login.php (POST)</span>
+                            <button onclick="copyCode('w4t2-login', this)" class="text-xs bg-slate-700 text-slate-200 px-2 py-1 rounded">نسخ</button>
+                        </div>
+                        <div class="p-3 bg-slate-950">
+<pre id="w4t2-login" class="text-xs text-slate-300"><code>&lt;!-- تم اختيار POST لأن كلمة السر بيانات حساسة يجب ألا تظهر في URL --&gt;
+&lt;form method="POST" action="login.php"&gt;
+    &lt;input type="text" name="username" placeholder="Username"&gt;
+    &lt;input type="password" name="password" placeholder="Password"&gt;
+    &lt;button type="submit"&gt;Login&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;?php
+if (isset($_POST['username']) &amp;&amp; isset($_POST['password'])) {
+    echo "Welcome, " . htmlspecialchars($_POST['username']);
+    // كلمة السر لا تـُطبع أبداً لأسباب أمنية
+}
+?&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workshop 4 Task 3 -->
+            <section id="w4-t3" class="content-section space-y-6 hidden">
+                <div class="border-b border-slate-700 pb-4">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Workshop 4 - Task 3</span>
+                    <h2 class="text-2xl font-bold text-white">التحقق الكامل من بيانات نموذج التسجيل (Server-Side Validation)</h2>
+                    <p class="text-sm text-slate-400 mt-1">المفاهيم: empty(), strlen(), filter_var(), FILTER_VALIDATE_EMAIL, FILTER_VALIDATE_URL, Error Collection Pattern.</p>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="bg-slate-900/80 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                        <span class="text-xs font-semibold text-slate-300 font-mono">register.php</span>
+                        <button onclick="copyCode('w4t3-code', this)" class="text-xs bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>نسخ الكود</span>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-slate-950 overflow-x-auto">
+<pre id="w4t3-code" class="text-sm text-slate-300"><code>&lt;?php
+$errors = [];
+$success = false;
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name     = $_POST['name']     ?? '';
+    $email    = $_POST['email']    ?? '';
+    $age      = $_POST['age']      ?? '';
+    $website  = $_POST['website']  ?? '';
+    $password = $_POST['password'] ?? '';
+
+    // 1. التحقق من الاسم
+    if (empty($name) || strlen($name) < 2) {
+        $errors[] = "Name must be at least 2 characters";
+    }
+
+    // 2. التحقق من البريد الإلكتروني
+    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Please enter a valid email";
+    }
+
+    // 3. التحقق من العمر
+    if (empty($age) || !is_numeric($age) || $age < 13 || $age > 120) {
+        $errors[] = "Age must be between 13 and 120";
+    }
+
+    // 4. التحقق من الموقع (اختياري)
+    if (!empty($website) && !filter_var($website, FILTER_VALIDATE_URL)) {
+        $errors[] = "Website must be a valid URL";
+    }
+
+    // 5. التحقق من كلمة السر
+    if (empty($password) || strlen($password) < 8) {
+        $errors[] = "Password must be at least 8 characters";
+    }
+
+    if (empty($errors)) {
+        $success = true;
+    }
+}
+?&gt;
+
+&lt;form method="POST" action="register.php"&gt;
+    Name: &lt;input type="text" name="name"&gt;&lt;br&gt;
+    Email: &lt;input type="text" name="email"&gt;&lt;br&gt;
+    Age: &lt;input type="text" name="age"&gt;&lt;br&gt;
+    Website (optional): &lt;input type="text" name="website"&gt;&lt;br&gt;
+    Password: &lt;input type="password" name="password"&gt;&lt;br&gt;
+    &lt;button type="submit"&gt;Register&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;?php if (!empty($errors)): ?&gt;
+    &lt;ul style="color: red;"&gt;
+        &lt;?php foreach ($errors as $error): ?&gt;
+            &lt;li&gt;&lt;?php echo htmlspecialchars($error); ?&gt;&lt;/li&gt;
+        &lt;?php endforeach; ?&gt;
+    &lt;/ul&gt;
+&lt;?php elseif ($success): ?&gt;
+    &lt;p style="color: green;"&gt;Registration successful! Welcome, &lt;?php echo htmlspecialchars($name); ?&gt;&lt;/p&gt;
+&lt;?php endif; ?&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workshop 4 Task 4 -->
+            <section id="w4-t4" class="content-section space-y-6 hidden">
+                <div class="border-b border-slate-700 pb-4">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Workshop 4 - Task 4</span>
+                    <h2 class="text-2xl font-bold text-white">صندوق التعليقات الآمن من ثغرات XSS (Cross-Site Scripting)</h2>
+                    <p class="text-sm text-slate-400 mt-1">المفاهيم: htmlspecialchars(), Sanitization vs Validation, Security Mindset.</p>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="bg-slate-900/80 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                        <span class="text-xs font-semibold text-slate-300 font-mono">comments.php</span>
+                        <button onclick="copyCode('w4t4-code', this)" class="text-xs bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>نسخ الكود</span>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-slate-950 overflow-x-auto">
+<pre id="w4t4-code" class="text-sm text-slate-300"><code>&lt;?php
+$comments = ["Great tutorial!", "Looking forward to more."];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' &amp;&amp; !empty($_POST['comment'])) {
+    $comments[] = $_POST['comment'];
+}
+?&gt;
+
+&lt;form method="POST" action="comments.php"&gt;
+    &lt;textarea name="comment" placeholder="Write a comment..."&gt;&lt;/textarea&gt;
+    &lt;button type="submit"&gt;Post Comment&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;h3&gt;Comments:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;?php foreach ($comments as $comment): ?&gt;
+    &lt;!-- UNSAFE (Non-sanitized version):
+    &lt;li&gt;&lt;?php echo $comment; ?&gt;&lt;/li&gt; --&gt;
+
+    &lt;!-- SAFE: htmlspecialchars() converts &lt; and &gt; into &amp;lt; and &amp;gt;, 
+    so the browser displays the tag as plain text instead of running it as HTML/JS. --&gt;
+    &lt;li&gt;&lt;?php echo htmlspecialchars($comment); ?&gt;&lt;/li&gt;
+&lt;?php endforeach; ?&gt;
+&lt;/ul&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workshop 5 Setup -->
+            <section id="w5-setup" class="content-section space-y-6 hidden">
+                <div class="border-b border-slate-700 pb-4">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Workshop 5 - Setup</span>
+                    <h2 class="text-2xl font-bold text-white">إعداد قاعدة البيانات والجدول (MySQL Script)</h2>
+                    <p class="text-sm text-slate-400 mt-1">المفاهيم: CREATE DATABASE, CREATE TABLE, Auto Increment, Default Timestamp.</p>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="bg-slate-900/80 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                        <span class="text-xs font-semibold text-slate-300 font-mono">db_setup.sql</span>
+                        <button onclick="copyCode('w5setup-code', this)" class="text-xs bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>نسخ SQL</span>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-slate-950 overflow-x-auto">
+<pre id="w5setup-code" class="text-sm text-amber-300"><code>CREATE DATABASE workshop_db;
+USE workshop_db;
+
+CREATE TABLE products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    quantity INT NOT NULL DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workshop 5 Task 1 -->
+            <section id="w5-t1" class="content-section space-y-6 hidden">
+                <div class="border-b border-slate-700 pb-4">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Workshop 5 - Task 1</span>
+                    <h2 class="text-2xl font-bold text-white">الاتصال بقاعدة البيانات وتعبئة البيانات الأولية (Seed Database)</h2>
+                    <p class="text-sm text-slate-400 mt-1">المفاهيم: mysqli_connect(), mysqli_connect_error(), mysqli_query(), INSERT Statements.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <!-- connect.php -->
+                    <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                        <div class="bg-slate-900/80 px-3 py-2 border-b border-slate-700 flex justify-between items-center">
+                            <span class="text-xs font-semibold text-sky-300 font-mono">connect.php</span>
+                            <button onclick="copyCode('w5t1-connect', this)" class="text-xs bg-slate-700 text-slate-200 px-2 py-1 rounded">نسخ</button>
+                        </div>
+                        <div class="p-3 bg-slate-950">
+<pre id="w5t1-connect" class="text-xs text-slate-300"><code>&lt;?php
+$host = "localhost";
+$user = "root";
+$pass = ""; // أو كلمة المرور الخاصة بك
+$db   = "workshop_db";
+
+$conn = mysqli_connect($host, $user, $pass, $db);
+
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+echo "Connected successfully. Server version: " . mysqli_get_server_info($conn) . "\n";
+?&gt;</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- seed.php -->
+                    <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                        <div class="bg-slate-900/80 px-3 py-2 border-b border-slate-700 flex justify-between items-center">
+                            <span class="text-xs font-semibold text-sky-300 font-mono">seed.php</span>
+                            <button onclick="copyCode('w5t1-seed', this)" class="text-xs bg-slate-700 text-slate-200 px-2 py-1 rounded">نسخ</button>
+                        </div>
+                        <div class="p-3 bg-slate-950">
+<pre id="w5t1-seed" class="text-xs text-slate-300"><code>&lt;?php
+require_once("connect.php");
+
+$products = [
+    ["name" => "Laptop",     "price" => 899.99, "quantity" => 10],
+    ["name" => "Mouse",      "price" => 15.50,  "quantity" => 100],
+    ["name" => "Keyboard",   "price" => 45.00,  "quantity" => 60],
+    ["name" => "Monitor",    "price" => 199.99, "quantity" => 25],
+    ["name" => "Headphones", "price" => 59.99,  "quantity" => 40]
+];
+
+foreach ($products as $product) {
+    $sql = "INSERT INTO products (name, price, quantity) 
+            VALUES ('{$product['name']}', {$product['price']}, {$product['quantity']})";
+            
+    if (mysqli_query($conn, $sql)) {
+        echo "Inserted: " . $product['name'] . "\n";
+    } else {
+        echo "Error inserting " . $product['name'] . ": " . mysqli_error($conn) . "\n";
+    }
+}
+?&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workshop 5 Task 2 -->
+            <section id="w5-t2" class="content-section space-y-6 hidden">
+                <div class="border-b border-slate-700 pb-4">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Workshop 5 - Task 2</span>
+                    <h2 class="text-2xl font-bold text-white">عرض المنتجات وتطبيق الفلترة الديناميكية (Catalog Reader)</h2>
+                    <p class="text-sm text-slate-400 mt-1">المفاهيم: Dynamic Queries, SELECT, mysqli_fetch_assoc(), WHERE, ORDER BY.</p>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="bg-slate-900/80 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                        <span class="text-xs font-semibold text-slate-300 font-mono">catalog.php</span>
+                        <button onclick="copyCode('w5t2-code', this)" class="text-xs bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>نسخ الكود</span>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-slate-950 overflow-x-auto">
+<pre id="w5t2-code" class="text-sm text-slate-300"><code>&lt;?php
+require_once("connect.php");
+
+$sql = "SELECT * FROM products WHERE 1=1";
+
+if (isset($_GET['min_price']) &amp;&amp; is_numeric($_GET['min_price'])) {
+    $minPrice = $_GET['min_price'];
+    $sql .= " AND price >= $minPrice";
+}
+
+if (isset($_GET['sort']) &amp;&amp; $_GET['sort'] === 'price_desc') {
+    $sql .= " ORDER BY price DESC";
+} else {
+    $sql .= " ORDER BY name ASC";
+}
+
+$result = mysqli_query($conn, $sql);
+
+if (!$result) {
+    die("Query failed: " . mysqli_error($conn));
+}
+
+$totalCount = 0;
+$totalValue = 0;
+
+while ($row = mysqli_fetch_assoc($result)) {
+    echo $row['name'] . " - $" . $row['price'] . " (Qty: " . $row['quantity'] . ")\n";
+    $totalCount++;
+    $totalValue += $row['price'] * $row['quantity'];
+}
+
+echo "\nTotal products shown: $totalCount\n";
+echo "Total inventory value shown: $" . number_format($totalValue, 2) . "\n";
+?&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workshop 5 Task 3 -->
+            <section id="w5-t3" class="content-section space-y-6 hidden">
+                <div class="border-b border-slate-700 pb-4">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Workshop 5 - Task 3</span>
+                    <h2 class="text-2xl font-bold text-white">تحديث مخزون المنتجات مع معالجة الشحنات الواردة</h2>
+                    <p class="text-sm text-slate-400 mt-1">المفاهيم: UPDATE Statement, SELECT Check, mysqli_affected_rows().</p>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="bg-slate-900/80 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                        <span class="text-xs font-semibold text-slate-300 font-mono">restock.php</span>
+                        <button onclick="copyCode('w5t3-code', this)" class="text-xs bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>نسخ الكود</span>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-slate-950 overflow-x-auto">
+<pre id="w5t3-code" class="text-sm text-slate-300"><code>&lt;?php
+require_once("connect.php");
+
+$shipment = [
+    "Laptop" => 5,
+    "Mouse"  => 50,
+    "Drone"  => 20 // عنصر غير موجود بالجدول لتقييم معالجة الاستثناء
+];
+
+foreach ($shipment as $name => $amount) {
+    // 1. التحقق من وجود المنتج
+    $checkSql = "SELECT * FROM products WHERE name = '$name'";
+    $checkResult = mysqli_query($conn, $checkSql);
+
+    if (mysqli_num_rows($checkResult) === 0) {
+        echo "Skipped: $name (product not found)\n";
+        continue;
+    }
+
+    // 2. تحديث الكمية بإضافتها للكمية السابقة
+    $updateSql = "UPDATE products SET quantity = quantity + $amount WHERE name = '$name'";
+    mysqli_query($conn, $updateSql);
+    
+    $affected = mysqli_affected_rows($conn);
+    echo "Updated: $name, rows affected: $affected\n";
+}
+
+echo "\n--- Updated Table ---\n";
+$result = mysqli_query($conn, "SELECT * FROM products");
+while ($row = mysqli_fetch_assoc($result)) {
+    echo $row['name'] . ": " . $row['quantity'] . " in stock\n";
+}
+?&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workshop 5 Task 4 -->
+            <section id="w5-t4" class="content-section space-y-6 hidden">
+                <div class="border-b border-slate-700 pb-4">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Workshop 5 - Task 4</span>
+                    <h2 class="text-2xl font-bold text-white">حذف المنتجات ومناقشة تقنية الحذف الخفي (Soft Delete)</h2>
+                    <p class="text-sm text-slate-400 mt-1">المفاهيم: DELETE Statement, Hard Delete vs Soft Delete, Data Preservation, Soft-Delete Strategy.</p>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="bg-slate-900/80 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                        <span class="text-xs font-semibold text-slate-300 font-mono">cleanup.php</span>
+                        <button onclick="copyCode('w5t4-code', this)" class="text-xs bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>نسخ الكود</span>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-slate-950 overflow-x-auto">
+<pre id="w5t4-code" class="text-sm text-slate-300"><code>&lt;?php
+/*
+ * Discussion:
+ * Hard-deleting rows immediately is risky in production: data is gone permanently, 
+ * which is dangerous if the delete was a mistake or if data is needed later for auditing.
+ * A "soft delete" adds a column like is_deleted (boolean) or deleted_at (timestamp).
+ * Instead of DELETE, you UPDATE that column, preserving data history while filtering it out from user views.
+ */
+
+require_once("connect.php");
+
+// تصفير كمية أحد المنتجات لأغراض التجربة
+mysqli_query($conn, "UPDATE products SET quantity = 0 WHERE name = 'Headphones'");
+
+echo "--- Out of stock before delete ---\n";
+$result = mysqli_query($conn, "SELECT * FROM products WHERE quantity = 0");
+while ($row = mysqli_fetch_assoc($result)) {
+    echo $row['name'] . "\n";
+}
+
+// تنفيذ الحذف للكميات الصفرية
+mysqli_query($conn, "DELETE FROM products WHERE quantity = 0");
+echo "\nRows deleted: " . mysqli_affected_rows($conn) . "\n";
+
+$countResult = mysqli_query($conn, "SELECT COUNT(*) AS total FROM products");
+$countRow = mysqli_fetch_assoc($countResult);
+echo "Products remaining: " . $countRow['total'] . "\n";
+?&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        // Copy Code Functionality
+        function copyCode(elementId, button) {
+            const codeText = document.getElementById(elementId).innerText;
+            
+            // Temporary Textarea creation for robust clipboard copy
+            const tempArea = document.createElement('textarea');
+            tempArea.value = codeText;
+            document.body.appendChild(tempArea);
+            tempArea.select();
+            
+            try {
+                document.execCommand('copy');
+                const originalHtml = button.innerHTML;
+                button.innerHTML = `<i class="fa-solid fa-check"></i> <span>تم النسخ!</span>`;
+                button.classList.remove('bg-sky-600', 'hover:bg-sky-500', 'bg-slate-700');
+                button.classList.add('bg-emerald-600');
+                
+                setTimeout(() => {
+                    button.innerHTML = originalHtml;
+                    button.classList.remove('bg-emerald-600');
+                    button.classList.add('bg-sky-600');
+                }, 2000);
+            } catch (err) {
+                console.error('Copy failed:', err);
+            } finally {
+                document.body.removeChild(tempArea);
+            }
+        }
+
+        // Navigation Controller
+        function navigateTo(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(sec => sec.classList.add('hidden'));
+
+            // Show selected section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+            }
+
+            // Update Active Class on Navigation Links
+            const navButtons = document.querySelectorAll('.nav-item');
+            navButtons.forEach(btn => {
+                btn.classList.remove('active', 'bg-sky-600', 'text-white');
+            });
+
+            event.currentTarget.classList.add('active');
+
+            // Close Mobile Sidebar if open
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            if (!sidebar.classList.contains('translate-x-full')) {
+                sidebar.classList.add('translate-x-full');
+                overlay.classList.add('hidden');
+            }
+
+            // Scroll Top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mobile Sidebar Toggle
+        const toggleMenuBtn = document.getElementById('toggleMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        if (toggleMenuBtn) {
+            toggleMenuBtn.addEventListener('click', () => {
+                sidebar.classList.toggle('translate-x-full');
+                overlay.classList.toggle('hidden');
+            });
+        }
+
+        if (overlay) {
+            overlay.addEventListener('click', () => {
+                sidebar.classList.add('translate-x-full');
+                overlay.classList.add('hidden');
+            });
+        }
+    </script>
+</body>
+</html>
